@@ -30,7 +30,7 @@ router.post('/', authMiddleware, async (req, res) => {
 });
 
 router.get('/', authMiddleware, async (req, res) => {
-    const invoices = await Invoice.find().populate('userId', 'name').populate('items.productId', 'name price');
+    const invoices = await Invoice.find({} , {__v:0}).populate('userId', 'name').populate('items.productId', 'name price stock');
     res.json(invoices);
 });
 

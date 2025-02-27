@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
 const invoiceRoutes = require('./routes/invoices');
-
+const authMiddleware = require("./middleware/auth")
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
+app.use('/api/products', authMiddleware,productRoutes);
 app.use('/api/invoices', invoiceRoutes);
 
 const PORT = process.env.PORT || 5000;
